@@ -14,13 +14,13 @@ public final class KeyboardAvoider : ObservableObject {
     
     private var _rects = [Int: CGRect]() {
         didSet {
-            print("Keyboard Avoider rects changed: \(_rects.count)")
+            debugPrint("Keyboard Avoider rects changed: \(_rects.count)")
         }
     }
-    var rects: [Int: CGRect] {
+    public var rects: [Int: CGRect] {
         set {
             guard keyboardRect == .zero else {
-                print("Warning: Keyboard Avoider changing rects while keyboard is visible.")
+                debugPrint("Warning: Keyboard Avoider changing rects while keyboard is visible.")
                 return
             }
             _rects = newValue
@@ -30,20 +30,20 @@ public final class KeyboardAvoider : ObservableObject {
         }
     }
     
-    var editingField : Int = -1 {
+    public var editingField : Int = -1 {
         didSet {
             updateSlideSize()
         }
     }
     
     // MARK: - Publishers
-    var slideSizePublisher = CurrentValueSubject<CGSize, Never>(.zero)
+    public var slideSizePublisher = CurrentValueSubject<CGSize, Never>(.zero)
     
     // MARK: - Observable interface
-    @Published var slideSize: CGSize = .zero
-    @Published var isInitialized: Bool = false
+    @Published public var slideSize: CGSize = .zero
+    @Published public var isInitialized: Bool = false
     
-    @Published var keyboardRect: CGRect = .zero {
+    @Published public var keyboardRect: CGRect = .zero {
         didSet {
             updateSlideSize()
         }
@@ -53,8 +53,8 @@ public final class KeyboardAvoider : ObservableObject {
     private var keyboardWillShow : Cancellable? = nil
     private var keyboardWillHide : Cancellable? = nil
     
-    init() {
-        print("Keyboard Avoider init")
+    public init() {
+        debugPrint("Keyboard Avoider init")
         
         self.keyboardWillShow = NotificationCenter.default
         .publisher(for: UIResponder.keyboardWillShowNotification)
@@ -78,7 +78,7 @@ public final class KeyboardAvoider : ObservableObject {
     }
     
     deinit {
-        print("Keyboard Avoider deinit")
+        debugPrint("Keyboard Avoider deinit")
         
         self.keyboardWillShow?.cancel()
         self.keyboardWillHide?.cancel()
@@ -113,7 +113,7 @@ public final class KeyboardAvoider : ObservableObject {
 
 public extension KeyboardAvoider {
     
-    func keyboardOffsets(isTabBar: Bool = true, offset: CGFloat = 0) -> (total: CGFloat, adjusted: CGFloat) {
+    public func keyboardOffsets(isTabBar: Bool = true, offset: CGFloat = 0) -> (total: CGFloat, adjusted: CGFloat) {
         
         let tabBarHeight = isTabBar ? UITabBarController().tabBar.frame.height : 0
         let safeAreaHeight = UIApplication.shared.windows.first{ $0.isKeyWindow }?.safeAreaInsets.bottom ?? 0
@@ -141,20 +141,20 @@ public extension List {
 }
 
 
-struct AttachedKeyboardAvoider : ViewModifier {
+public struct AttachedKeyboardAvoider : ViewModifier {
     
-    @State var total : CGFloat = 0
-    @State var adjusted : CGFloat = 0
+    @State public var total : CGFloat = 0
+    @State public var adjusted : CGFloat = 0
     
-    let avoider: KeyboardAvoider
-    let offset: CGFloat
+    public let avoider: KeyboardAvoider
+    public let offset: CGFloat
     
-    init(_ avoider: KeyboardAvoider, offset: CGFloat = 0) {
+    public init(_ avoider: KeyboardAvoider, offset: CGFloat = 0) {
         self.avoider = avoider
         self.offset = offset
     }
     
-    func body(content: Content) -> some View {
+    public func body(content: Content) -> some View {
         
         content
         .padding(.bottom, total > 0 ? adjusted + 32 : 0)
@@ -172,7 +172,7 @@ struct AttachedKeyboardAvoider : ViewModifier {
 
 public extension ScrollView {
     
-    func attachKeyboardAvoider(_ keyboardAvoider: KeyboardAvoider, offset: CGFloat = 0) -> some View {
+    public func attachKeyboardAvoider(_ keyboardAvoider: KeyboardAvoider, offset: CGFloat = 0) -> some View {
     
         let (total, adjusted) = keyboardAvoider.keyboardOffsets(offset: offset)
         
@@ -180,7 +180,7 @@ public extension ScrollView {
         .padding(.bottom, total > 0 ? adjusted + 32 : 0)
     }
     
-    func attachKeyboardAvoiderPublisher(_ keyboardAvoider: KeyboardAvoider, offset: CGFloat = 0) -> some View {
+    public func attachKeyboardAvoiderPublisher(_ keyboardAvoider: KeyboardAvoider, offset: CGFloat = 0) -> some View {
         
         return self.modifier(AttachedKeyboardAvoider(keyboardAvoider, offset: offset))
     }
