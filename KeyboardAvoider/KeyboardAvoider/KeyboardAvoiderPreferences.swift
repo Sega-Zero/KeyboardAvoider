@@ -11,8 +11,8 @@ import SwiftUI
 // MARK: - Keyboard Avoiding Field Preference
 public struct KeyboardAvoiderPreference: Equatable {
     
-    let tag: Int
-    let rect: CGRect
+    public let tag: Int
+    public let rect: CGRect
     
     static func == (lhs: KeyboardAvoiderPreference, rhs: KeyboardAvoiderPreference) -> Bool {
         debugPrint("y: \(lhs.rect.minY) vs \(rhs.rect.minY)")
@@ -22,7 +22,7 @@ public struct KeyboardAvoiderPreference: Equatable {
 
 public struct KeyboardAvoiderPreferenceKey: PreferenceKey {
     
-    typealias Value = [KeyboardAvoiderPreference]
+    public typealias Value = [KeyboardAvoiderPreference]
     
     public static var defaultValue: [KeyboardAvoiderPreference] = []
     
