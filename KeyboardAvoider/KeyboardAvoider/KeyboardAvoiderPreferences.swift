@@ -14,7 +14,7 @@ public struct KeyboardAvoiderPreference: Equatable {
     public let tag: Int
     public let rect: CGRect
     
-    static func == (lhs: KeyboardAvoiderPreference, rhs: KeyboardAvoiderPreference) -> Bool {
+    public static func == (lhs: KeyboardAvoiderPreference, rhs: KeyboardAvoiderPreference) -> Bool {
         debugPrint("y: \(lhs.rect.minY) vs \(rhs.rect.minY)")
        return  lhs.tag == rhs.tag && (lhs.rect.minY == rhs.rect.minY)
     }
