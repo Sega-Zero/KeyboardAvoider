@@ -10,7 +10,7 @@ import UIKit
 import SwiftUI
 import Combine
 
-final class KeyboardAvoider : ObservableObject {
+public final class KeyboardAvoider : ObservableObject {
     
     private var _rects = [Int: CGRect]() {
         didSet {
