@@ -111,7 +111,7 @@ public final class KeyboardAvoider : ObservableObject {
   
 }
 
-extension KeyboardAvoider {
+public extension KeyboardAvoider {
     
     func keyboardOffsets(isTabBar: Bool = true, offset: CGFloat = 0) -> (total: CGFloat, adjusted: CGFloat) {
         
@@ -124,7 +124,7 @@ extension KeyboardAvoider {
     }
 }
 
-extension List {
+public extension List {
     
     func attachKeyboardAvoider(_ keyboardAvoider: KeyboardAvoider, offset: CGFloat = 0) -> some View {
     
@@ -170,7 +170,7 @@ struct AttachedKeyboardAvoider : ViewModifier {
     }
 }
 
-extension ScrollView {
+public extension ScrollView {
     
     func attachKeyboardAvoider(_ keyboardAvoider: KeyboardAvoider, offset: CGFloat = 0) -> some View {
     
