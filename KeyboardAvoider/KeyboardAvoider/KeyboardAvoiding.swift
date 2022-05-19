@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct KeyboardAvoiding<Content>: View where Content: View{
+public struct KeyboardAvoiding<Content>: View where Content: View{
     
     @ObservedObject private var avoider : KeyboardAvoider
     
