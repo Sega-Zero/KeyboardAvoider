@@ -9,34 +9,34 @@
 import SwiftUI
 
 // MARK: - Keyboard Avoiding Field Preference
-struct KeyboardAvoiderPreference: Equatable {
+public struct KeyboardAvoiderPreference: Equatable {
     
     let tag: Int
     let rect: CGRect
     
     static func == (lhs: KeyboardAvoiderPreference, rhs: KeyboardAvoiderPreference) -> Bool {
-        print("y: \(lhs.rect.minY) vs \(rhs.rect.minY)")
+        debugPrint("y: \(lhs.rect.minY) vs \(rhs.rect.minY)")
        return  lhs.tag == rhs.tag && (lhs.rect.minY == rhs.rect.minY)
     }
 }
 
-struct KeyboardAvoiderPreferenceKey: PreferenceKey {
+public struct KeyboardAvoiderPreferenceKey: PreferenceKey {
     
     typealias Value = [KeyboardAvoiderPreference]
     
-    static var defaultValue: [KeyboardAvoiderPreference] = []
+    public static var defaultValue: [KeyboardAvoiderPreference] = []
     
-    static func reduce(value: inout [KeyboardAvoiderPreference], nextValue: () -> [KeyboardAvoiderPreference]) {
+    public static func reduce(value: inout [KeyboardAvoiderPreference], nextValue: () -> [KeyboardAvoiderPreference]) {
          value.append(contentsOf: nextValue())
     }
 }
 
 
-struct KeyboardAvoiderPreferenceReader: ViewModifier {
+public struct KeyboardAvoiderPreferenceReader: ViewModifier {
     
-    let tag: Int
+    public let tag: Int
     
-    func body(content: Content) -> some View {
+    public func body(content: Content) -> some View {
         
         content
             .background(
@@ -53,9 +53,9 @@ struct KeyboardAvoiderPreferenceReader: ViewModifier {
     }
 }
 
-extension View {
+public extension View {
     
-    func avoidKeyboard(tag: Int) -> some View {
+    public func avoidKeyboard(tag: Int) -> some View {
         self.modifier(KeyboardAvoiderPreferenceReader(tag: tag))
     }
     
