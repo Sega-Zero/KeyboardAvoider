@@ -32,7 +32,7 @@ public struct KeyboardAvoiding<Content>: View where Content: View{
     }
 }
 
-extension View {
+public extension View {
     
     func registerKeyboardAvoider(_ avoider: KeyboardAvoider) -> some View {
         
