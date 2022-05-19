@@ -13,7 +13,7 @@ let package = Package(
     targets: [
         .target(
             name: "KeyboardAvoider",
-            path: "KeyboardAvoider",
+            path: "KeyboardAvoider/KeyboardAvoider",
             exclude: [
                 "Info.plist",
             ]
