@@ -15,13 +15,13 @@ public struct KeyboardAvoiding<Content>: View where Content: View{
     let content: () -> Content
     let offset: CGFloat
     
-    init(with avoider: KeyboardAvoider, offset: CGFloat = 0, @ViewBuilder content: @escaping () -> Content) {
+    public init(with avoider: KeyboardAvoider, offset: CGFloat = 0, @ViewBuilder content: @escaping () -> Content) {
         self.content = content
         self.avoider = avoider
         self.offset = offset
     }
     
-    var body: some View {
+    public var body: some View {
         
         let isKeyboard = avoider.slideSize.height != 0
         
@@ -34,7 +34,7 @@ public struct KeyboardAvoiding<Content>: View where Content: View{
 
 public extension View {
     
-    func registerKeyboardAvoider(_ avoider: KeyboardAvoider) -> some View {
+    public func registerKeyboardAvoider(_ avoider: KeyboardAvoider) -> some View {
         
         self.onPreferenceChange(KeyboardAvoiderPreferenceKey.self) { prefs in
             
