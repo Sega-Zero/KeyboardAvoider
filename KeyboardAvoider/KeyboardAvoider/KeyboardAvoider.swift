@@ -161,7 +161,7 @@ public struct AttachedKeyboardAvoider : ViewModifier {
         .onReceive(avoider.slideSizePublisher) { size in
             
             let (total, adjusted) = self.avoider.keyboardOffsets(offset: self.offset)
-            print("Total: \(total), adjusted: \(adjusted) keyboard bottom padding.")
+            debugPrint("Total: \(total), adjusted: \(adjusted) keyboard bottom padding.")
             DispatchQueue.main.async {
                 self.total = total
                 self.adjusted = adjusted
